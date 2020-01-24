@@ -1,0 +1,32 @@
+{
+    "request": {
+        "body": {
+            "data": [
+                "PHP ❤️️ 0min",
+                "LARAVEL ❤️ 1min 2min",
+                "VUE.JS ❤️",
+                ""
+            ]
+        }
+    },
+    "response": {
+        "statusCode": 422,
+        "body": {
+            "message": "The given data was invalid.",
+            "errors": {
+                "data.0": [
+                    "PHP ❤️️ 0min::MINUTES_NOT_FOUND"
+                ],
+                "data.1": [
+                    "LARAVEL ❤️ 1min 2min::THERE_ARE_MANY_MINUTES"
+                ],
+                "data.2": [
+                    "VUE.JS ❤️::MINUTES_NOT_FOUND"
+                ],
+                "data.3": [
+                    "The data.3 field is required."
+                ]
+            }
+        }
+    }
+}

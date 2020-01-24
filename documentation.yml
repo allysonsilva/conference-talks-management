@@ -1,0 +1,114 @@
+openapi: 3.0.1
+servers:
+  - url: /api/v1
+
+info:
+  description: |
+    Interact with Backend Test API.
+  version: 1.0.0
+  title: Backend Test API
+  termsOfService: https://appxyz.dev/terms/
+  contact:
+    email: contact@appxyz.dev
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Conference
+    description: Manage conference talks.
+    externalDocs:
+      description: Find out more
+      url: https://appxyz.dev
+
+paths:
+  /conferences/talks:
+    post:
+      tags:
+        - Conference
+      summary: Organize conference talks.
+      description: Organize the schedules of the conference talks, creating tracks and allocating the same talks.
+      operationId: organizeConferenceTalks
+      # parameters:
+      #   - name: conferenceId
+      #     in: path
+      #     description: ID of conference
+      #     required: true
+      #     type: integer
+      #     format: int64
+      requestBody:
+        description: Conference talks fields.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Talks'
+      responses:
+        '200':
+          # description: successful operation
+          $ref: '#/components/responses/ConferenceTracksData'
+        '422':
+          description: Invalid input
+        '405':
+          description: Validation exception
+        # '200':
+        #   description: successful operation
+        #   schema:
+        #     type: array
+        #     items:
+        #       "$ref": "#/definitions/Talk"
+        # '400':
+        #   description: Invalid status value
+
+components:
+  schemas:
+    Track:
+      type: object
+      required:
+        - title
+        - data
+      properties:
+        title:
+          type: string
+          description: Conference track title.
+          example: 'Track 1'
+        data:
+          type: array
+          items:
+            type: string
+          description: Conference talks title.
+          example:
+            - '09:00AM Mais vale um bebadis conhecidiss, que um alcoolatra anonimis 60min.'
+            - '10:00AM Atirei o pau no gatis, per gatis num morreus 30min.'
+            - '12:00PM Lunch'
+            - '05:00PM Networking Event'
+
+    Talks:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+          description: Conference talks title.
+          example: ['Atirei o pau no gatis, per gatis num morreus 30min.', 'Mais vale um bebadis conhecidiss, que um alcoolatra anonimis 60min.']
+
+  responses:
+    ConferenceTracksData:
+      description: Tracks with conference talks.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                description: Conference track.
+                items:
+                  $ref: '#/components/schemas/Track'
+
+externalDocs:
+  description: Find out more about Backend
+  url: https://appxyz.dev

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         testdox="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         enforceTimeLimit="true"
+         defaultTimeLimit="1"
+         timeoutForSmallTests="2"
+         timeoutForMediumTests="5"
+         timeoutForLargeTests="10"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnIncomplete="true"
+         stopOnFailure="false">
+    <listeners>
+        <listener class="NunoMaduro\Collision\Adapters\Phpunit\Listener"/>
+    </listeners>
+
+    <!-- @see https://phpunit.readthedocs.io/en/8.5/extending-phpunit.html#extending-the-testrunner -->
+    <!-- <extensions>
+        <extension class="Tests\Runners\ResultAfterTestExtension"/>
+    </extensions> -->
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory phpVersion="7.4.0" phpVersionOperator=">=" suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+
+        <!-- <testsuite name="GraphQL Tests">
+            <directory suffix="Test.php">./tests/GraphQL/*</directory>
+        </testsuite> -->
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./app</directory>
+            <exclude>
+                <directory suffix=".php">./app/Core</directory>
+
+                <directory suffix=".php">./app/Support/Helpers</directory>
+                <directory suffix=".php">./app/Support/Validator</directory>
+                <directory suffix=".php">./app/Support/ORM</directory>
+
+                <directory suffix=".php">./app/Domain/*/Console</directory>
+                <directory suffix=".php">./app/Domain/*/Constants</directory>
+                <directory suffix=".php">./app/Domain/*/DataObjects</directory>
+                <directory suffix=".php">./app/Domain/*/Resources/Lang</directory>
+
+                <directory suffix=".php">./app/Interfaces/*/*/Resources</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+    </php>
+
+    <logging>
+        <!-- <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/> -->
+        <log type="coverage-html" target="build/coverage" lowUpperBound="35" highLowerBound="80"/>
+        <!-- <log type="testdox-html" target="build/testdox.html"/> -->
+    </logging>
+</phpunit>

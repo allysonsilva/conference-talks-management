@@ -1,0 +1,26 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+    level: max
+    ignoreErrors:
+        - '#Parameter \#1 \$function of function call_user_func_array expects callable\(\)#'
+        - '#Ds\\Set but does not specify its types: TValue#'
+        - '#Ds\\Set does not specify its types: TValue#'
+        - '#Expression "\$this->startTime" on a separate line does not do anything#'
+        - '#Ds\\Vector does not specify its types: TValue#'
+        - '#Method Support\\ORM\\BaseModel::query\(\) should return Support\\ORM\\BaseEloquentBuilder but returns Illuminate\\Database\\Eloquent\\Builder#'
+        - '#Class App\\User not found#'
+        # -
+        #     message: '#Undefined variable: \$this#'
+        #     paths:
+        #         - routes/console.php
+    checkMissingIterableValueType: false
+    excludes_analyse:
+        - **/Providers/RouteServiceProvider.php
+        - **/Support/Common/Traits/ComponentPath.php
+        - %currentWorkingDirectory%/routes/console.php
+    paths:
+        - app
+        - config
+        - routes
+        - tests
